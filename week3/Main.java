@@ -1,3 +1,5 @@
+package week3;
+
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.Dimension;
@@ -232,6 +234,24 @@ public class Main{
         fGBC.gridx = 0;
         fGBC.gridy = 1;
         frame.add(studentOptionsP, fGBC);
+    }
+
+    public static void studentDataPanel(JFrame frame, GridBagConstraints pGBC, GridBagConstraints fGBC){
+
+        JPanel studentDataP = new JPanel(new GridBagLayout());
+
+        JLabel nameL;
+        JLabel idL;
+        JLabel DOBL;
+        JLabel gradeLevelL;
+        JLabel takenClassesL;
+        JLabel overallGrade;
+
+        studentDataP.setVisible(false);
+        fGBC.gridx = 0;
+        fGBC.gridy = 2;
+        frame.add(studentDataP, fGBC);
+
     }
 
 }
