@@ -78,7 +78,7 @@ public class Main {
 
 
         //Begins the main program now that the students, classes, and teachers have been made
-        week3.Main.main(args);;
+        week3.Old_Main.main(args);
         mainScreen(students, allClasses, teachers);
 
     }

@@ -1,13 +1,5 @@
 package week3;
 
-import java.awt.GridBagLayout;
-import java.awt.Insets;
-import java.awt.Dimension;
-import java.awt.GridBagConstraints;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -15,243 +7,256 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
-import javax.swing.SwingConstants;
 
-public class Main{
+import java.awt.GridBagLayout;
+import java.awt.Color;
+import java.awt.GridBagConstraints;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-    private static String role;
-    private static JPanel studentOptionsP;
-    private static JPanel viewStudentDataP;
-    // private static JPanel teacherP;
-    // private static JPanel adminP;
+public class Main {
+
+    private static JFrame appFrame;
+    private static JPanel mainScreen;
+    private static JPanel mainStudentScreen;
+    private static JPanel studentDataScreen;
+
+    private static int role;
+    private static int studentID;
 
     public static void main(String[] args) {
-
-        GridBagConstraints fGBC = new GridBagConstraints();
-        GridBagConstraints pGBC = new GridBagConstraints();
         
-        JFrame frame = new JFrame();
-        frame.setLayout(new GridBagLayout());
+        createScreens();
+        
+        mainScreen.setVisible(true);
 
-        student(frame, pGBC, fGBC);
-        roleSelector(frame, pGBC, fGBC);
-
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setTitle("Student Database");
-        frame.pack();
-        frame.setVisible(true);
+        appFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        appFrame.setTitle("Student Database");
+        appFrame.pack();
+        appFrame.setVisible(true);
 
     }
 
-    public static void roleSelector(JFrame frame, GridBagConstraints pGBC, GridBagConstraints fGBC) {
+    public static void createScreens(){
 
-        JPanel roleSelectorP = new JPanel(new GridBagLayout());
+        appFrame = new JFrame();
+        mainScreen(appFrame);
+        //mainStudentScreen(appFrame);
+        studentDataScreen(appFrame);
 
-        roleSelectorP.setBorder(BorderFactory.createEmptyBorder(30, 30, 10, 30));
+    }
 
-        JLabel introL = new JLabel("Please Choose Your Role:");
-        pGBC.gridx = 0;
-        pGBC.gridy = 0;
-        roleSelectorP.add(introL, pGBC);
+    public static void mainScreen(JFrame frame){
 
-        //Creates a radio button that lets us select the role: student
+        //Creates an empty panel
+        mainScreen = new JPanel(new GridBagLayout());
+        GridBagConstraints pConstraints = new GridBagConstraints();
+
+
+
+        //Creates the intro text label
+        JLabel introL = new JLabel("Pick a Role:");
+
+        pConstraints.gridx = 0;
+        pConstraints.gridy = 0;
+
+        mainScreen.add(introL, pConstraints);
+    
+
+
+        //Creates the radio buttons
         JRadioButton studentRB = new JRadioButton("Student");
-        pGBC.gridx = 0;
-        pGBC.gridy = 1;
+
+        pConstraints.gridx = 0;
+        pConstraints.gridy = 2;
+
         studentRB.setFocusable(false);
+
         studentRB.addActionListener(new ActionListener() {
-            
             @Override
             public void actionPerformed(ActionEvent e){
-                role = "student";
+                role = 0;
             }
 
         });
-        roleSelectorP.add(studentRB, pGBC);
 
-        //Creates a radio button that lets us select the role: teacher
+        mainScreen.add(studentRB, pConstraints);
+
+
         JRadioButton teacherRB = new JRadioButton("Teacher");
-        pGBC.gridx = 0;
-        pGBC.gridy = 2;
+
+        pConstraints.gridx = 0;
+        pConstraints.gridy = 3;
+
         teacherRB.setFocusable(false);
+
         teacherRB.addActionListener(new ActionListener() {
-            
             @Override
             public void actionPerformed(ActionEvent e){
-                role = "teacher";
+                role = 1;
             }
 
         });
-        roleSelectorP.add(teacherRB, pGBC);
 
-        //Creates a radio button that lets us select the role: admin
+        mainScreen.add(teacherRB, pConstraints);
+
+
         JRadioButton adminRB = new JRadioButton("Administrator");
-        pGBC.gridx = 0;
-        pGBC.gridy = 3;
+
+        pConstraints.gridx = 0;
+        pConstraints.gridy = 4;
+
         adminRB.setFocusable(false);
+
         adminRB.addActionListener(new ActionListener() {
-            
             @Override
             public void actionPerformed(ActionEvent e){
-                role = "admin";
+                role = 2;
             }
 
         });
-        roleSelectorP.add(adminRB, pGBC);
 
-        //Puts all the role radio buttons into a group so that only one can be chosen at a time
-        ButtonGroup roles = new ButtonGroup();
-        roles.add(studentRB);
-        roles.add(teacherRB);
-        roles.add(adminRB);
+        mainScreen.add(adminRB, pConstraints);
 
-        //Creates a button that selects our role
-        JButton chooseRoleB = new JButton("Choose this role?");
-        pGBC.gridx = 0;
-        pGBC.gridy = 4;
-        chooseRoleB.setFocusable(false);
-        chooseRoleB.addActionListener(new ActionListener() {
-            
+
+
+        //Puts the radio buttons into a group so that only one can be selected at the same time
+        ButtonGroup roleBG = new ButtonGroup();
+
+        roleBG.add(studentRB);
+        roleBG.add(teacherRB);
+        roleBG.add(adminRB);
+
+
+
+        //Creates the button to select your role
+        JButton selectRoleB = new JButton("Select Role");
+
+        pConstraints.gridx = 0;
+        pConstraints.gridy = 5;
+
+        selectRoleB.setFocusable(false);
+
+        selectRoleB.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e){
-                if (role == "student"){
-                    System.out.println("Student");
-                    //teacherP.setVisible(false);
-                    //adminP.setVisible(false);
-                    studentOptionsP.setVisible(true);
-                } else if (role == "teacher") {
+                if (role == 0){
+                    System.out.println("Student Selected");
+                    mainScreen.setVisible(false);
+                    mainStudentScreen.setVisible(true);
+                } else if (role == 1) {
                     System.out.println("Teacher");
-                    studentOptionsP.setVisible(false);
-                } else if (role == "admin"){
+                    mainScreen.setVisible(false);
+                } else if (role == 2){
                     System.out.println("Admin");
-                    studentOptionsP.setVisible(false);
+                    mainScreen.setVisible(false);
                 } else {
                     System.out.println("No Role Selected");
                 }
             }
 
-        }); 
-        roleSelectorP.add(chooseRoleB, pGBC);
-        
-        fGBC.gridx = 0;
-        fGBC.gridy = 0;
-        frame.add(roleSelectorP, fGBC);
+        });
+
+        mainScreen.add(selectRoleB, pConstraints);
+
+
+
+        //Adds the panel to the main frame
+        frame.add(mainScreen);
+
+
+
+        //Sets the panel to invisible by default
+        mainScreen.setVisible(false);
+
+
+
     }
 
-    public static void student(JFrame frame, GridBagConstraints pGBC, GridBagConstraints fGBC){
+    public static void mainStudentScreen(JFrame frame){
 
-        pGBC.insets = new Insets(1, 2, 1, 2);
+        //Creates an empty panel
+        mainStudentScreen = new JPanel(new GridBagLayout());
+        GridBagConstraints pConstraints = new GridBagConstraints();
 
-        int prefSizeX = 150;
-        int prefSizeY = 25;
 
-        studentOptionsP = new JPanel(new GridBagLayout());
-        studentOptionsP.setBorder(BorderFactory.createEmptyBorder(30, 30, 10, 30));
 
-        JLabel prompt = new JLabel("What would you like to do:");
-        pGBC.gridx = 0;
-        pGBC.gridy = 0;
-        pGBC.gridwidth = 2;
-        studentOptionsP.add(prompt, pGBC);
+        //Creates the intro label
+        JLabel introL = new JLabel("Enter your student ID number:");
 
-        JButton viewDataB = new JButton("View your Data");
-        pGBC.gridx = 0;
-        pGBC.gridy = 1;
-        pGBC.gridwidth = 1;
-        pGBC.fill = GridBagConstraints.HORIZONTAL;
+        pConstraints.gridx = 0;
+        pConstraints.gridy = 0;
 
-        viewDataB.setPreferredSize(new Dimension(prefSizeX, prefSizeY));
-        viewDataB.setVerticalAlignment(SwingConstants.CENTER);
-        viewDataB.setFocusable(false);
-        viewDataB.addActionListener(new ActionListener() {
-            
+        mainStudentScreen.add(introL, pConstraints);
+
+
+
+        //Creates the input field
+        JTextField inputTF = new JTextField();
+
+        pConstraints.gridx = 0;
+        pConstraints.gridy = 1;
+
+        mainStudentScreen.add(inputTF, pConstraints);
+
+
+
+        //Creates the error message text for if a non-number is entered as an id
+        JLabel errorL = new JLabel("Not a Number");
+
+        pConstraints.gridx = 0;
+        pConstraints.gridy = 2;
+
+        errorL.setForeground(Color.RED);
+
+        errorL.setVisible(false);
+
+        mainStudentScreen.add(errorL, pConstraints);
+
+
+        //Creates the button that sets the student id to the inputed ID and switches to the data screen
+        JButton enterIDB = new JButton("Enter ID");
+
+        pConstraints.gridx = 1;
+        pConstraints.gridy = 1;
+
+        enterIDB.setFocusable(false);
+
+        enterIDB.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e){
-
-                studentOptionsP.setVisible(false);
-                viewStudentDataP = new JPanel(new GridBagLayout());
-                viewStudentDataP.setBorder(BorderFactory.createEmptyBorder(30, 30, 10, 30));
-
-
-                JTextField idTF = new JTextField("Student ID");
-                pGBC.gridx = 0;
-                pGBC.gridy = 0;
-                pGBC.gridwidth = 1;
-                viewStudentDataP.add(idTF, pGBC);
-
-
-                JButton getDataB = new JButton("Get Data");
-                pGBC.gridx = 1;
-                pGBC.gridy = 0;
-                pGBC.gridwidth = 1;
-
-                getDataB.setPreferredSize(new Dimension(prefSizeX, prefSizeY));
-                getDataB.setVerticalAlignment(SwingConstants.CENTER);
-                getDataB.setFocusable(false);
-                getDataB.addActionListener(new ActionListener() {
-            
-                @Override
-                public void actionPerformed(ActionEvent e){
-                        JLabel studentDataL = new JLabel("Student Data");
-                        pGBC.gridx = 0;
-                        pGBC.gridy = 1;
-                        pGBC.gridwidth = 2;
-                        pGBC.fill = GridBagConstraints.HORIZONTAL;
-                        viewStudentDataP.add(studentDataL, pGBC);
-                    }   
-
-                });
-                viewStudentDataP.add(getDataB, pGBC);
-
-                fGBC.gridx = 0;
-                fGBC.gridy = 1;
-                frame.add(viewStudentDataP, fGBC);
+            public void actionPerformed(ActionEvent ae){
+                try {
+                    studentID = Integer.parseInt(inputTF.getText());
+                } catch (Exception e) {
+                    errorL.setVisible(true);
+                    inputTF.setText("");
+                }
+                if (inputTF.getText() != "") {
+                    System.out.println("Student Data Based on ID");
+                    mainStudentScreen.setVisible(false);
+                }
             }
 
         });
-        studentOptionsP.add(viewDataB, pGBC);
+
+        mainStudentScreen.add(enterIDB, pConstraints);
 
 
-        JButton selectNewClass = new JButton("Select a New Class");
-        pGBC.gridx = 1;
-        pGBC.gridy = 1;
-        pGBC.gridwidth = 1;
-        pGBC.fill = GridBagConstraints.HORIZONTAL;
 
-        selectNewClass.setPreferredSize(new Dimension(prefSizeX, prefSizeY));
-        selectNewClass.setVerticalAlignment(SwingConstants.CENTER);
-        selectNewClass.setFocusable(false);
-        selectNewClass.addActionListener(new ActionListener() {
-            
-            @Override
-            public void actionPerformed(ActionEvent e){
-            }
+        //Adds the panel to the frame
+        frame.add(mainStudentScreen);
 
-        });
-        studentOptionsP.add(selectNewClass, pGBC);
 
-        studentOptionsP.setVisible(false);
-        fGBC.gridx = 0;
-        fGBC.gridy = 1;
-        frame.add(studentOptionsP, fGBC);
+
+        //Sets the panel to invisible by default
+        mainStudentScreen.setVisible(false);
+
+
+    
     }
 
-    public static void studentDataPanel(JFrame frame, GridBagConstraints pGBC, GridBagConstraints fGBC){
-
-        JPanel studentDataP = new JPanel(new GridBagLayout());
-
-        JLabel nameL;
-        JLabel idL;
-        JLabel DOBL;
-        JLabel gradeLevelL;
-        JLabel takenClassesL;
-        JLabel overallGrade;
-
-        studentDataP.setVisible(false);
-        fGBC.gridx = 0;
-        fGBC.gridy = 2;
-        frame.add(studentDataP, fGBC);
+    public static void studentDataScreen(JFrame frame){
 
     }
-
+    
 }
