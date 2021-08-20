@@ -28,7 +28,7 @@ public class Main {
         
         createScreens();
         
-        mainScreen.setVisible(true);
+        appFrame.getContentPane().add(mainScreen);
 
         appFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         appFrame.setTitle("Student Database");
@@ -41,7 +41,7 @@ public class Main {
 
         appFrame = new JFrame();
         mainScreen(appFrame);
-        //mainStudentScreen(appFrame);
+        mainStudentScreen(appFrame);
         studentDataScreen(appFrame);
 
     }
@@ -142,14 +142,14 @@ public class Main {
             public void actionPerformed(ActionEvent e){
                 if (role == 0){
                     System.out.println("Student Selected");
-                    mainScreen.setVisible(false);
-                    mainStudentScreen.setVisible(true);
+                    frame.getContentPane().removeAll();
+                    frame.getContentPane().add(mainStudentScreen);
                 } else if (role == 1) {
                     System.out.println("Teacher");
-                    mainScreen.setVisible(false);
+                    frame.getContentPane().removeAll();
                 } else if (role == 2){
                     System.out.println("Admin");
-                    mainScreen.setVisible(false);
+                    frame.getContentPane().removeAll();
                 } else {
                     System.out.println("No Role Selected");
                 }
@@ -161,13 +161,8 @@ public class Main {
 
 
 
-        //Adds the panel to the main frame
-        frame.add(mainScreen);
-
-
-
-        //Sets the panel to invisible by default
-        mainScreen.setVisible(false);
+        //Sets the panel to visible by default
+        mainScreen.setVisible(true);
 
 
 
@@ -196,6 +191,7 @@ public class Main {
 
         pConstraints.gridx = 0;
         pConstraints.gridy = 1;
+        pConstraints.fill = GridBagConstraints.HORIZONTAL;
 
         mainStudentScreen.add(inputTF, pConstraints);
 
@@ -233,7 +229,7 @@ public class Main {
                 }
                 if (inputTF.getText() != "") {
                     System.out.println("Student Data Based on ID");
-                    mainStudentScreen.setVisible(false);
+                    frame.getContentPane().removeAll();
                 }
             }
 
@@ -243,13 +239,8 @@ public class Main {
 
 
 
-        //Adds the panel to the frame
-        frame.add(mainStudentScreen);
-
-
-
-        //Sets the panel to invisible by default
-        mainStudentScreen.setVisible(false);
+        //Sets the panel to visible by default
+        mainStudentScreen.setVisible(true);
 
 
     
