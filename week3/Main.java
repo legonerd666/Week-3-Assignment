@@ -226,7 +226,7 @@ public class Main {
         enterIDB.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae){
-                
+
                 IDHasError = false;
 
                 try {
@@ -238,9 +238,10 @@ public class Main {
                     inputTF.setText("");
                 }
                 if (!IDHasError) {
+                    errorL.setVisible(false);
                      System.out.println("Student Data Based on ID");
                      frame.getContentPane().removeAll();
-                     //frame.getContentPane().add(studentDataScreen);
+                     frame.getContentPane().add(studentDataScreen);
                      SwingUtilities.updateComponentTreeUI(frame);
                 }
             }
@@ -260,15 +261,88 @@ public class Main {
 
     public static void studentDataScreen(JFrame frame){
 
+        //Creates an empty panel
+        studentDataScreen = new JPanel(new GridBagLayout());
+        GridBagConstraints pConstraints = new GridBagConstraints();
+
+
+
         //Creates a label to house all the student information
+        JLabel studentDataL = new JLabel();
+
+        pConstraints.gridx = 0;
+        pConstraints.gridy = 0;
+
+        studentDataScreen.add(studentDataL, pConstraints);
+
+
 
         //Creates a button to allow students to choose to take a new class
+        JButton takeClassB = new JButton("Select Class");
+
+        pConstraints.gridx = 0;
+        pConstraints.gridy = 1;
+
+        takeClassB.setFocusable(false);
+
+        takeClassB.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae){
+                System.out.println("Taking new class");
+            }
+
+        });
+
+        studentDataScreen.add(takeClassB, pConstraints);
+
+
 
         //Creates a button which returns you to the main student screen
+        JButton mainStudentScreenB = new JButton("Return to ID Screen");
 
+        pConstraints.gridx = 0;
+        pConstraints.gridy = 2;
+
+        mainStudentScreenB.setFocusable(false);
+
+        mainStudentScreenB.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae){
+                frame.getContentPane().removeAll();
+                frame.getContentPane().add(mainStudentScreen);
+                SwingUtilities.updateComponentTreeUI(frame);
+            }
+
+        });
+
+        studentDataScreen.add(mainStudentScreenB, pConstraints);
+
+
+        
         //Creates a button that returns you to the main screen
+        JButton mainScreenB = new JButton("Return to Main Screen");
+
+        pConstraints.gridx = 1;
+        pConstraints.gridy = 2;
+
+        mainScreenB.setFocusable(false);
+
+        mainScreenB.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae){
+                frame.getContentPane().removeAll();
+                frame.getContentPane().add(mainScreen);
+                SwingUtilities.updateComponentTreeUI(frame);
+            }
+
+        });
+
+        studentDataScreen.add(mainScreenB, pConstraints);
+
+
 
         //Sets the panel as visible by default
+        studentDataScreen.setVisible(true);
 
 
 
