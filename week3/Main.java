@@ -24,6 +24,7 @@ public class Main {
 
     private static int role;
     private static int studentID;
+    private static boolean IDHasError;
 
     public static void main(String[] args) {
         
@@ -191,7 +192,7 @@ public class Main {
 
 
         //Creates the input field
-        JTextField inputTF = new JTextField();
+        JTextField inputTF = new JTextField("");
 
         pConstraints.gridx = 0;
         pConstraints.gridy = 1;
@@ -225,16 +226,22 @@ public class Main {
         enterIDB.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae){
+                
+                IDHasError = false;
+
                 try {
                     studentID = Integer.parseInt(inputTF.getText());
                 } catch (Exception e) {
                     errorL.setVisible(true);
+                    IDHasError = true;
+                    System.out.println("Got an error");
                     inputTF.setText("");
                 }
-                if (inputTF.getText() != "") {
-                    System.out.println("Student Data Based on ID");
-                    frame.getContentPane().removeAll();
-                    SwingUtilities.updateComponentTreeUI(frame);
+                if (!IDHasError) {
+                     System.out.println("Student Data Based on ID");
+                     frame.getContentPane().removeAll();
+                     //frame.getContentPane().add(studentDataScreen);
+                     SwingUtilities.updateComponentTreeUI(frame);
                 }
             }
 
@@ -252,6 +259,18 @@ public class Main {
     }
 
     public static void studentDataScreen(JFrame frame){
+
+        //Creates a label to house all the student information
+
+        //Creates a button to allow students to choose to take a new class
+
+        //Creates a button which returns you to the main student screen
+
+        //Creates a button that returns you to the main screen
+
+        //Sets the panel as visible by default
+
+
 
     }
     
