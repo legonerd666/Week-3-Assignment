@@ -7,6 +7,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
 
 import java.awt.GridBagLayout;
 import java.awt.Color;
@@ -144,12 +145,15 @@ public class Main {
                     System.out.println("Student Selected");
                     frame.getContentPane().removeAll();
                     frame.getContentPane().add(mainStudentScreen);
+                    SwingUtilities.updateComponentTreeUI(frame);
                 } else if (role == 1) {
                     System.out.println("Teacher");
                     frame.getContentPane().removeAll();
+                    SwingUtilities.updateComponentTreeUI(frame);
                 } else if (role == 2){
                     System.out.println("Admin");
                     frame.getContentPane().removeAll();
+                    SwingUtilities.updateComponentTreeUI(frame);
                 } else {
                     System.out.println("No Role Selected");
                 }
@@ -230,6 +234,7 @@ public class Main {
                 if (inputTF.getText() != "") {
                     System.out.println("Student Data Based on ID");
                     frame.getContentPane().removeAll();
+                    SwingUtilities.updateComponentTreeUI(frame);
                 }
             }
 
