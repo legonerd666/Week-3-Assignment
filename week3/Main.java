@@ -21,6 +21,8 @@ public class Main {
     private static JPanel mainScreen;
     private static JPanel mainStudentScreen;
     private static JPanel studentDataScreen;
+    private static JPanel mainTeacherScreen;
+    private static JPanel sortedStudentsScreen;
 
     private static int role;
     private static int studentID;
@@ -45,6 +47,7 @@ public class Main {
         mainScreen(appFrame);
         mainStudentScreen(appFrame);
         studentDataScreen(appFrame);
+        mainTeacherScreen(appFrame);
 
     }
 
@@ -150,6 +153,7 @@ public class Main {
                 } else if (role == 1) {
                     System.out.println("Teacher");
                     frame.getContentPane().removeAll();
+                    frame.getContentPane().add(mainTeacherScreen);
                     SwingUtilities.updateComponentTreeUI(frame);
                 } else if (role == 2){
                     System.out.println("Admin");
@@ -343,6 +347,120 @@ public class Main {
 
         //Sets the panel as visible by default
         studentDataScreen.setVisible(true);
+
+
+
+    }
+
+    public static void mainTeacherScreen(JFrame frame){
+
+        //Creates an empty panel
+        mainTeacherScreen = new JPanel(new GridBagLayout());
+        GridBagConstraints pConstraints = new GridBagConstraints();
+
+
+
+        //Creates the intro label
+        JLabel introL = new JLabel("Please choose what you would like to do");
+
+        pConstraints.gridx = 0;
+        pConstraints.gridy = 0;
+
+        mainTeacherScreen.add(introL, pConstraints);
+
+
+
+        //Creates a button that takes you to the sorted students page
+        JButton sortedStudentsScreenB = new JButton("List Students");
+
+        pConstraints.gridx = 0;
+        pConstraints.gridy = 1;
+
+        sortedStudentsScreenB.setFocusable(false);
+
+        sortedStudentsScreenB.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae){
+                frame.getContentPane().removeAll();
+                //frame.getContentPane().add(sortedStudentsScreen);
+                SwingUtilities.updateComponentTreeUI(frame);
+            }
+
+        });
+
+        mainTeacherScreen.add(sortedStudentsScreenB, pConstraints);
+
+
+
+        //Creates a button that takes you to a page where you can set a students grade
+        JButton gradeStudentsScreenB = new JButton("Grade Students");
+
+        pConstraints.gridx = 0;
+        pConstraints.gridy = 2;
+
+        gradeStudentsScreenB.setFocusable(false);
+
+        gradeStudentsScreenB.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae){
+                frame.getContentPane().removeAll();
+                //frame.getContentPane().add(gradeStudentsScreen);
+                SwingUtilities.updateComponentTreeUI(frame);
+            }
+
+        });
+
+        mainTeacherScreen.add(gradeStudentsScreenB, pConstraints);
+
+
+
+        //Creates a button that takes you to a page where you can set a students last day of attendance
+        JButton setAttendanceStudentsScreenB = new JButton("Set Attendance of Students");
+
+        pConstraints.gridx = 0;
+        pConstraints.gridy = 3;
+
+        setAttendanceStudentsScreenB.setFocusable(false);
+
+        setAttendanceStudentsScreenB.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae){
+                frame.getContentPane().removeAll();
+                //frame.getContentPane().add(setAttendanceStudentsScreen);
+                SwingUtilities.updateComponentTreeUI(frame);
+            }
+
+        });
+
+        mainTeacherScreen.add(setAttendanceStudentsScreenB, pConstraints);
+
+
+
+        //Creates a button that takes you to a page where you can list the students who take classes from a specific teacher
+        JButton listStudentsByTeacherScreenB = new JButton("List Students by Teacher");
+
+        pConstraints.gridx = 0;
+        pConstraints.gridy = 4;
+
+        listStudentsByTeacherScreenB.setFocusable(false);
+
+        listStudentsByTeacherScreenB.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae){
+                frame.getContentPane().removeAll();
+                //frame.getContentPane().add(listStudentsByTeacherScreenB);
+                SwingUtilities.updateComponentTreeUI(frame);
+            }
+
+        });
+
+        mainTeacherScreen.add(listStudentsByTeacherScreenB, pConstraints);
+
+
+
+        //Sets the panel as visible by default
+        mainTeacherScreen.setVisible(true);
+
 
 
 
