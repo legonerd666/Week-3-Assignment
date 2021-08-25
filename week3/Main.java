@@ -465,5 +465,51 @@ public class Main {
 
 
     }
+
+    public static void sortedStudentsScreen(JFrame frame) {
+
+        //Creates an emtpy panel
+
+        //Creates the intro label
+
+        //Creates a button to sort the table by id
+
+        //Creates a button to sort the table by name
+
+        //Creates a button to sort the table by classes
+
+        //Creates a button to sort the table by grade level
+
+        //Creates the table header
+
+        //Adds the students info to the tables two dimensional array
+
+        //Adds the header and the info to a table
+
+        //Sets the panel as visible by default
+
+    }
+
+    public static void gradeStudentsScreen(JFrame frame){
+
+        //Creates an empty panel
+
+        //Adds the intro text
+
+        //Creates a text field for the teacher to enter a students id
+
+        //Creates a text field for the teacher to enter their id
+
+        //Creates a button that enters the student class editing screen based on student id if the student takes the class from the teacher 
+
+        //Creates the table header
+
+        //Adds the students info to the tables two dimensional array
+
+        //Adds the header and the info to a table
+
+        //Sets the panel as visible by default
+
+    }
     
 }
