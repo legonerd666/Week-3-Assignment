@@ -6,6 +6,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 
@@ -48,6 +50,7 @@ public class Main {
         mainStudentScreen(appFrame);
         studentDataScreen(appFrame);
         mainTeacherScreen(appFrame);
+        sortedStudentsScreen(appFrame);
 
     }
 
@@ -382,7 +385,7 @@ public class Main {
             @Override
             public void actionPerformed(ActionEvent ae){
                 frame.getContentPane().removeAll();
-                //frame.getContentPane().add(sortedStudentsScreen);
+                frame.getContentPane().add(sortedStudentsScreen);
                 SwingUtilities.updateComponentTreeUI(frame);
             }
 
@@ -469,24 +472,111 @@ public class Main {
     public static void sortedStudentsScreen(JFrame frame) {
 
         //Creates an emtpy panel
+        sortedStudentsScreen = new JPanel(new GridBagLayout());
+        GridBagConstraints pConstraints = new GridBagConstraints();
+
+        
 
         //Creates the intro label
+        JLabel introL = new JLabel("Please choose how you'd like to sort the students");
+
+        pConstraints.gridx = 0;
+        pConstraints.gridy = 0;
+
+        sortedStudentsScreen.add(introL, pConstraints);
+
+
 
         //Creates a button to sort the table by id
+        JButton sortByIDB = new JButton("ID");
+
+        sortByIDB.setFocusable(false);
+
+        sortByIDB.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae){
+            }
+
+        });
+
+
 
         //Creates a button to sort the table by name
+        JButton sortByNameB = new JButton("Name");
+
+        sortByNameB.setFocusable(false);
+
+        sortByNameB.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae){
+            }
+
+        });
+
+
 
         //Creates a button to sort the table by classes
+        JButton sortByClassB = new JButton("Taken Classes");
+
+        sortByClassB.setFocusable(false);
+
+        sortByClassB.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae){
+            }
+
+        });
+
+
 
         //Creates a button to sort the table by grade level
+        JButton sortByGradeB = new JButton("Grade");
+
+        sortByGradeB.setFocusable(false);
+
+        sortByGradeB.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae){
+            }
+
+        });
+
+
 
         //Creates the table header
+        String[] header = {sortByIDB.getText(), sortByNameB.getText(), sortByClassB.getText(), sortByGradeB.getText()};
+
+
 
         //Adds the students info to the tables two dimensional array
+        String[][] studentInfo = {
+            {"1", "Test Name", "Test Class", "Test Grade"},
+            {"2", "Test Name 2", "Test Class 2", "Test Grade 2"}
+        };
+
+
 
         //Adds the header and the info to a table
+        JTable students = new JTable(studentInfo, header);
+
+
+
+        //Creates a ScrollPane for the table
+        JScrollPane scrollPane = new JScrollPane(students);
+
+        pConstraints.gridx = 0;
+        pConstraints.gridy = 1;
+
+        students.setFillsViewportHeight(true);
+
+        sortedStudentsScreen.add(scrollPane, pConstraints);
+
+
 
         //Sets the panel as visible by default
+        sortedStudentsScreen.setVisible(true);
+
+
 
     }
 
