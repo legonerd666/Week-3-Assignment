@@ -25,9 +25,11 @@ public class Main {
     private static JPanel studentDataScreen;
     private static JPanel mainTeacherScreen;
     private static JPanel sortedStudentsScreen;
+    private static JPanel gradeStudentsScreen;
 
     private static int role;
     private static int studentID;
+    private static int teacherID;
     private static boolean IDHasError;
 
     public static void main(String[] args) {
@@ -51,6 +53,7 @@ public class Main {
         studentDataScreen(appFrame);
         mainTeacherScreen(appFrame);
         sortedStudentsScreen(appFrame);
+        gradeStudentsScreen(appFrame);
 
     }
 
@@ -407,7 +410,7 @@ public class Main {
             @Override
             public void actionPerformed(ActionEvent ae){
                 frame.getContentPane().removeAll();
-                //frame.getContentPane().add(gradeStudentsScreen);
+                frame.getContentPane().add(gradeStudentsScreen);
                 SwingUtilities.updateComponentTreeUI(frame);
             }
 
@@ -583,22 +586,158 @@ public class Main {
     public static void gradeStudentsScreen(JFrame frame){
 
         //Creates an empty panel
+        gradeStudentsScreen = new JPanel(new GridBagLayout());
+        GridBagConstraints pConstraints = new GridBagConstraints();
+
+
 
         //Adds the intro text
+        JLabel introL = new JLabel("Enter Id of student you'd like to adjust the grade of and your ID");
+
+        pConstraints.gridx = 0;
+        pConstraints.gridy = 0;
+        pConstraints.gridwidth = 2;
+        pConstraints.fill = GridBagConstraints.HORIZONTAL;
+
+        gradeStudentsScreen.add(introL, pConstraints);
+
+
 
         //Creates a text field for the teacher to enter a students id
+        JTextField studentIDTF = new JTextField("Student ID");
+
+        pConstraints.gridx = 0;
+        pConstraints.gridy = 1;
+        pConstraints.fill = GridBagConstraints.HORIZONTAL;
+
+        gradeStudentsScreen.add(studentIDTF, pConstraints);
+
+
 
         //Creates a text field for the teacher to enter their id
+        JTextField teacherIDTF = new JTextField("Teacher ID");
+
+        pConstraints.gridx = 2;
+        pConstraints.gridy = 1;
+        pConstraints.fill = GridBagConstraints.HORIZONTAL;
+
+        gradeStudentsScreen.add(teacherIDTF, pConstraints);
+
+
+
+        //Creates an error message for the studentID textfield
+        JLabel studentErrorL = new JLabel("Not a Number");
+
+        pConstraints.gridx = 0;
+        pConstraints.gridy = 2;
+
+        studentErrorL.setForeground(Color.RED);
+
+        studentErrorL.setVisible(false);
+
+        gradeStudentsScreen.add(studentErrorL, pConstraints);
+
+
+
+        //Creates an error message for the teacherID textfield
+        JLabel teacherErrorL = new JLabel("Not a Number");
+
+        pConstraints.gridx = 2;
+        pConstraints.gridy = 2;
+
+        teacherErrorL.setForeground(Color.RED);
+
+        teacherErrorL.setVisible(false);
+
+        gradeStudentsScreen.add(teacherErrorL, pConstraints);
+
+
 
         //Creates a button that enters the student class editing screen based on student id if the student takes the class from the teacher 
+        JButton enterIDsB = new JButton("Change Grade");
+
+        pConstraints.gridx = 4;
+        pConstraints.gridy = 1;
+        pConstraints.gridwidth = 1;
+        pConstraints.fill = GridBagConstraints.HORIZONTAL;
+
+        enterIDsB.setFocusable(false);
+
+        enterIDsB.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae){
+
+                IDHasError = false;
+
+                try {
+                    studentID = Integer.parseInt(studentIDTF.getText());
+                } catch (Exception e) {
+                    studentErrorL.setVisible(true);
+                    IDHasError = true;
+                    System.out.println("Got an error");
+                    studentIDTF.setText("");
+                }
+
+                try {
+                    teacherID = Integer.parseInt(teacherIDTF.getText());
+                } catch (Exception e) {
+                    teacherErrorL.setVisible(true);
+                    IDHasError = true;
+                    System.out.println("Got an error");
+                    teacherIDTF.setText("");
+                }
+
+
+                if (!IDHasError) {
+                    studentErrorL.setVisible(false);
+                    teacherErrorL.setVisible(false);
+                     System.out.println("Grade Change");
+                     frame.getContentPane().removeAll();
+                     //frame.getContentPane().add();
+                     SwingUtilities.updateComponentTreeUI(frame);
+                }
+            }
+
+        });
+
+        gradeStudentsScreen.add(enterIDsB, pConstraints);
+
+
 
         //Creates the table header
+        String[] header = {"ID", "Name", "Classes", "Grade"};
+
+
 
         //Adds the students info to the tables two dimensional array
+        String[][] studentInfo = {
+            {"1", "Test Name", "Test Class", "Test Grade"},
+            {"2", "Test Name 2", "Test Class 2", "Test Grade 2"}
+        };
+
+
 
         //Adds the header and the info to a table
+        JTable students = new JTable(studentInfo, header);
+
+
+
+        //Creates a ScrollPane for the table
+        JScrollPane scrollPane = new JScrollPane(students);
+
+        pConstraints.gridx = 0;
+        pConstraints.gridy = 3;
+        pConstraints.gridwidth = 4;
+        pConstraints.fill = GridBagConstraints.HORIZONTAL;
+
+        students.setFillsViewportHeight(true);
+
+        gradeStudentsScreen.add(scrollPane, pConstraints);
+
+
 
         //Sets the panel as visible by default
+        gradeStudentsScreen.setVisible(true);
 
     }
     
