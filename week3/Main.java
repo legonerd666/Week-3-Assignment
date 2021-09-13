@@ -27,6 +27,7 @@ public class Main {
     private static JPanel sortedStudentsScreen;
     private static JPanel gradeStudentsScreen;
     private static JPanel setStudentsLDAScreen;
+    private static JPanel getStudentsByTeacherScreen;
 
     private static int role;
     private static int studentID;
@@ -901,4 +902,100 @@ public class Main {
 
     }    
     
+    public static void getStudentsByTeacherScreen(JFrame frame){
+
+        //Creates an empty panel
+        getStudentsByTeacherScreen = new JPanel(new GridBagLayout());
+        GridBagConstraints pConstraints = new GridBagConstraints();
+
+
+
+        //Creates intro text
+        JLabel introL = new JLabel("Enter the ID of the teacher whose students you'd like to see");
+
+        pConstraints.gridx = 0;
+        pConstraints.gridy = 0;
+        pConstraints.gridwidth = 1;
+        pConstraints.fill = GridBagConstraints.HORIZONTAL;
+
+        getStudentsByTeacherScreen.add(introL, pConstraints);
+
+
+
+        //Creates a text field for a teachers ID
+        JTextField teacherIDTF = new JTextField("Teacher ID");
+
+        pConstraints.gridx = 0;
+        pConstraints.gridy = 1;
+        pConstraints.fill = GridBagConstraints.HORIZONTAL;
+
+        getStudentsByTeacherScreen.add(teacherIDTF, pConstraints);
+
+
+
+        //Creates an error message
+        JLabel teacherErrorL = new JLabel("Not a Number");
+
+        pConstraints.gridx = 0;
+        pConstraints.gridy = 2;
+
+        teacherErrorL.setForeground(Color.RED);
+
+        teacherErrorL.setVisible(false);
+
+        getStudentsByTeacherScreen.add(teacherErrorL, pConstraints);
+
+
+
+        //Creates a button to enter the teacher id
+        JButton enterIDB = new JButton("Get Students");
+
+        pConstraints.gridx = 1;
+        pConstraints.gridy = 1;
+        pConstraints.gridwidth = 1;
+        pConstraints.fill = GridBagConstraints.HORIZONTAL;
+
+        enterIDB.setFocusable(false);
+
+        enterIDB.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent ae){
+
+                IDHasError = false;
+
+                try {
+                    teacherID = Integer.parseInt(teacherIDTF.getText());
+                } catch (Exception e) {
+                    teacherErrorL.setVisible(true);
+                    IDHasError = true;
+                    System.out.println("Got an error");
+                    teacherIDTF.setText("");
+                }
+                if (!IDHasError) {
+                    teacherErrorL.setVisible(false);
+                     System.out.println("Student Data Based on ID");
+                     frame.getContentPane().removeAll();
+                     //frame.getContentPane().add();
+                     SwingUtilities.updateComponentTreeUI(frame);
+                }
+            }
+
+        });
+
+        getStudentsByTeacherScreen.add(enterIDB, pConstraints);
+
+        
+
+        //Creates the table header
+
+        //Adds the students info to the tables two dimensional array
+
+        //Adds the header and the info to a table
+
+        //Creates a ScrollPane for the table
+
+        //Sets panel as visible by default
+
+
+    }
 }
